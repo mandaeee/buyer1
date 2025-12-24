@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: #d1d1d1; 
+            overflow: hidden; 
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .decor {
+            position: absolute;
+            user-select: none;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* HALAMAN 1 */
+        #halaman-awal {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        #halaman-awal h1 { 
+            font-size: 1.4rem; 
+            color: #444; 
+            margin-bottom: 50px; 
+            z-index: 10;
+        }
+
+        /* ENVELOPE */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            z-index: 10;
+            width: 200px; 
+            height: 130px;
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #9e9e9e;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 80px solid #858585; 
+            transition: 0.5s;
+            transform-origin: top;
+            z-index: 12;
+        }
+
+        .envelope.open::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .franco {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #fdf2f2;
+            border-radius: 50%;
+            border: 2px dashed #9e9e9e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #666;
+            z-index: 13;
+        }
+
+        /* FILM STRIP (MODIFIKASI: fotogerak.jpg) */
+        .film-strip {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background: #222;
+            border: 4px solid #111;
+            border-radius: 10px;
+            z-index: 30;
+            bottom: 10px;
+            left: 60px;
+            opacity: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            pointer-events: none;
+        }
+
+        .film-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        /* ANIMASI */
+        .animate-out {
+            animation: flyOut 1.5s ease-in-out forwards;
+        }
+
+        @keyframes flyOut {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { transform: translateY(-300px) rotate(-15deg) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-600px) rotate(-30deg) scale(0.8); opacity: 0; }
+        }
+
+        .animate-big {
+            animation: flyBig 5s linear forwards;
+            width: 280px; 
+            height: 400px;
+            position: fixed;
+            top: -450px; 
+            right: -300px;
+            left: auto;
+            bottom: auto;
+        }
+
+        @keyframes flyBig {
+            0% { transform: translate(0, 0) rotate(25deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-150vw, 150vh) rotate(-15deg); opacity: 0; }
+        }
+
+        /* HALAMAN 2 */
+        #halaman-utama {
+            height: 100vh;
+            width: 100%;
+            background: #ebebeb;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 25px;
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+            z-index: 2;
+        }
+
+        .photo-wrapper {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .frame {
+            position: absolute;
+            width: 130px;
+            height: 160px;
+            background: white;
+            padding: 8px 8px 30px 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .frame img { width: 100%; height: 100%; object-fit: cover; }
+        .foto1 { transform: rotate(-8deg) translateX(-65px); }
+        .foto2 { transform: rotate(10deg) translateX(65px); }
+
+        /* REVISI: Paper dibuat lebih rapi dan teks terstruktur */
+        .paper {
+            width: 90%; 
+            max-width: 400px;
+            background-color: #f5f5f5; /* Lebih cerah agar enak dibaca */
+            border-radius: 25px;
+            padding: 30px 20px;
+            height: 60vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            border: 1px solid #ddd;
+            display: block; /* Agar teks mengalir ke bawah dengan benar */
+        }
+
+        #typing-text {
+            font-family: 'Gaegu', cursive;
+            font-size: 1.35rem; /* Sedikit dikecilkan agar lebih padat */
+            line-height: 1.6;
+            color: #333;
+            text-align: left; /* Rata kiri agar terstruktur seperti foto ke-2 */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .slide-up #halaman-awal { transform: translateY(-100%); }
+        .slide-up #halaman-utama { transform: translateY(-100%); }
+    </style>
+</head>
+<body>
+
+    <audio id="lagu" src="lagu1.mp3" loop></audio>
+
+    <div id="halaman-awal">
+        <div id="decor-awal"></div>
+        <h1>What I want to tell you</h1>
+        
+        <div class="envelope-wrapper" id="btn-buka">
+            <div class="film-strip" id="film">
+                <img src="fotogerak.jpg">
+            </div>
+
+            <div class="envelope" id="envelope-body">
+                <div class="franco">BUKA</div>
+            </div>
+            <p style="margin-top: 150px; color: #666; font-size: 0.85rem;">(Klik suratnya)</p>
+        </div>
+    </div>
+
+    <div id="halaman-utama">
+        <div id="decor-utama"></div>
+        <div class="photo-wrapper">
+            <div class="frame foto1"><img src="foto1.jpg"></div>
+            <div class="frame foto2"><img src="foto2.jpg"></div>
+        </div>
+        <div class="paper">
+            <div id="typing-text"></div>
+        </div>
+    </div>
+
+    <script>
+        const btnBuka = document.getElementById('btn-buka');
+        const envelope = document.getElementById('envelope-body');
+        const film = document.getElementById('film');
+        const lagu = document.getElementById('lagu');
+        const textElement = document.getElementById('typing-text');
+        
+        // REVISI: Teks dibuat lebih rapi dengan paragraf (terstruktur seperti foto ke-2)
+        const pesan = "Dari banyaknya orang-orang yang datang di kehidupanku, terimakasih karena kamu sudah menjadi yang terbaik di antara mereka.\n\nMakasih untuk hal-hal baik yang udah kamu usahain, makasih buat semua perlakuan baik kamu ke aku. Aku mau kamu tau kalau aku bangga banget punya cowok kayak kamu.\n\nKamu tulus, sabar, dan selalu punya cara buat bikin aku ngerasa aman. Aku bersyukur banget bisa nemuin seseorang sebaik kamu dalam dunia yang kadang cuma tau gimana caranya pergi.\n\nDan kalau nanti kamu ketemu cewek yang lebih baik dari aku, aku harap kamu tetep milih aku sebagai pendamping hidup kamu. Aku mau kamu tau kalau aku beneran secinta itu sama kamu.\n\nSo, thank you for being you, for loving me the way you do, and for choosing me in every version of myself. I love you, more than words could ever say. 🥰🌹✨";
+
+        function spawnDecor(containerId) {
+            const container = document.getElementById(containerId);
+            const emojis = ['☁️', '✨', '⭐', '🎈', '✉️', '📎'];
+            for (let i = 0; i < 15; i++) {
+                const d = document.createElement('div');
+                d.className = 'decor';
+                d.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                d.style.left = Math.random() * 95 + '%';
+                d.style.top = Math.random() * 95 + '%';
+                d.style.fontSize = (Math.random() * 10 + 20) + 'px';
+                container.appendChild(d);
+            }
+        }
+        spawnDecor('decor-awal');
+        spawnDecor('decor-utama');
+
+        btnBuka.addEventListener('click', () => {
+            envelope.classList.add('open');
+            
+            setTimeout(() => {
+                film.style.opacity = "1";
+                film.classList.add('animate-out');
+            }, 500);
+
+            setTimeout(() => {
+                film.classList.remove('animate-out');
+                void film.offsetWidth; 
+                film.classList.add('animate-big');
+            }, 2100);
+
+            setTimeout(() => {
+                lagu.play().catch(e => console.log("Audio Error"));
+                document.body.classList.add('slide-up');
+                setTimeout(mulaiKetik, 1000);
+            }, 7000); 
+        });
+
+        function mulaiKetik() {
+            let i = 0;
+            function ketik() {
+                if (i < pesan.length) {
+                    textElement.innerHTML += pesan.charAt(i);
+                    i++;
+                    setTimeout(ketik, 45); // Kecepatan ngetik sedikit dipercepat agar tidak bosan
+                    const paper = document.querySelector('.paper');
+                    paper.scrollTop = paper.scrollHeight;
+                }
+            }
+            ketik();
+        }
+    </script>
+</body>
+</html>
