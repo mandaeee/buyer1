@@ -28,13 +28,18 @@
             transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
             position: relative;
             z-index: 10;
+            padding: 20px;
         }
 
         .judul-awal {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             color: #444;
             margin-bottom: 40px;
             z-index: 20;
+            text-align: center; 
+            max-width: 300px; 
+            line-height: 1.5; 
+            word-wrap: break-word;
         }
 
         /* --- ENVELOPE --- */
@@ -140,53 +145,58 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 10px;
+            padding: 15px 10px;
             transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
             z-index: 5;
-            overflow: hidden; /* Supaya dekorasi tidak bikin scrollbar */
+            overflow: hidden;
         }
 
         .photo-wrapper {
             position: relative;
             width: 100%;
-            min-height: 220px; /* Ditambah tingginya karena bingkai lebih besar */
+            min-height: 230px; 
             display: flex; justify-content: center; align-items: center;
-            margin-bottom: 10px;
             z-index: 20;
         }
 
-        /* UKURAN BINGKAI DIPERBESAR */
         .frame {
             position: absolute;
-            width: 145px; /* Dari 120px jadi 145px */
-            height: 180px; /* Dari 150px jadi 180px */
+            width: 145px;
+            height: 180px;
             background: white;
-            padding: 8px 8px 35px 8px; /* Padding bawah lebih besar untuk efek polaroid */
+            padding: 8px 8px 35px 8px;
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
         .frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* POSISI 4 FOTO */
         .foto1 { transform: rotate(-10deg) translateX(-85px) translateY(-10px); }
         .foto2 { transform: rotate(12deg) translateX(85px) translateY(-10px); }
-        .foto3 { transform: rotate(-5deg) translateX(-100px) translateY(80px); z-index: 19; }
-        .foto4 { transform: rotate(8deg) translateX(100px) translateY(80px); z-index: 19; }
+        .foto3 { transform: rotate(-5deg) translateX(-100px) translateY(85px); z-index: 19; }
+        .foto4 { transform: rotate(8deg) translateX(100px) translateY(85px); z-index: 19; }
 
         .paper {
-            width: 90%; max-width: 400px;
+            width: 92%; max-width: 420px;
             background: #fff;
             border-radius: 20px;
-            padding: 20px;
+            padding: 25px 22px;
             flex: 1;
             overflow-y: auto;
-            margin-top: 60px; /* Memberi ruang untuk foto 3 & 4 */
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            z-index: 25; /* Di atas foto 3 & 4 */
+            margin-top: 65px; 
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            z-index: 25;
             position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        #typing-text { font-family: 'Gaegu', cursive; font-size: 1.25rem; line-height: 1.6; color: #333; }
+        #typing-text { 
+            font-family: 'Gaegu', cursive; 
+            font-size: 1.35rem; 
+            line-height: 1.8; 
+            color: #333;
+            text-align: left;
+            white-space: pre-wrap; 
+        }
 
         .decor { 
             position: absolute; 
@@ -205,7 +215,7 @@
 
     <div id="halaman-awal">
         <div id="decor-awal"></div>
-        <h1 class="judul-awal">What I want to tell you</h1>
+        <h1 class="judul-awal">What I want to tell you 🫣🫠⁉️</h1>
         
         <div class="envelope-wrapper" id="btn-buka">
             <div class="film-strip" id="film"><img src="fotogerak.jpg"></div>
@@ -213,7 +223,7 @@
                 <div class="franco">BUKA</div>
             </div>
         </div>
-        <p style="margin-top: 20px; color: #666;">(Klik suratnya)</p>
+        <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">(Klik suratnya)</p>
     </div>
 
     <div id="halaman-utama">
@@ -236,7 +246,7 @@
         const lagu = document.getElementById('lagu');
         const textElement = document.getElementById('typing-text');
         
-        const pesan = "Dari banyaknya orang-orang yang datang di kehidupanku, terimakasih karena kamu sudah menjadi yang terbaik di antara mereka.\n\nMakasih untuk hal-hal baik yang udah kamu usahain, makasih buat semua perlakuan baik kamu ke aku. Aku mau kamu tau kalau aku bangga banget punya cowok kayak kamu.\n\nKamu tulus, sabar, dan selalu punya cara buat bikin aku ngerasa aman. Aku bersyukur banget bisa nemuin seseorang sebaik kamu dalam dunia yang kadang cuma tau gimana caranya pergi.\n\nDan kalau nanti kamu ketemu cewek yang lebih baik dari aku, aku harap kamu tetep milih aku sebagai pendamping hidup kamu. Aku mau kamu tau kalau aku beneran secinta itu sama kamu.\n\nSo, thank you for being you, for loving me the way you do, and for choosing me in every version of myself. I love you, more than words could ever say. 🥰🌹✨";
+        const pesan = "Dari banyaknya orang-orang yang datang di kehidupanku, terimakasih karena kamu sudah menjadi yang terbaik di antara mereka.\n\nMakasih untuk hal-hal baik yang udah kamu usahain, makasih buat semua perlakuan baik kamu ke aku. \n\nAku mau kamu tau kalau aku bangga banget punya cowok kayak kamu.\n\nKamu tulus, sabar, dan selalu punya cara buat bikin aku ngerasa aman. Aku bersyukur banget bisa nemuin seseorang sebaik kamu dalam dunia yang kadang cuma tau gimana caranya pergi.\n\nDan kalau nanti kamu ketemu cewek yang lebih baik dari aku, aku harap kamu tetep milih aku sebagai pendamping hidup kamu.\n\nAku mau kamu tau kalau aku beneran secinta itu sama kamu.\n\nSo, thank you for being you, for loving me the way you do, and for choosing me in every version of myself.\n\nI love you, more than words could ever say. 🥰🌹✨";
 
         function spawnDecor(containerId) {
             const container = document.getElementById(containerId);
@@ -267,7 +277,10 @@
             }, 2100);
 
             setTimeout(() => {
-                lagu.play().catch(e => console.log("Play blocked"));
+                // Setting Reff Detik 38
+                lagu.currentTime = 38; 
+                
+                lagu.play().catch(e => console.log("Play blocked by browser"));
                 document.getElementById('main-body').classList.add('slide-up');
                 setTimeout(mulaiKetik, 1000);
             }, 6500); 
@@ -277,7 +290,7 @@
             let i = 0;
             function ketik() {
                 if (i < pesan.length) {
-                    textElement.innerHTML += pesan.charAt(i);
+                    textElement.textContent += pesan.charAt(i);
                     i++;
                     setTimeout(ketik, 45);
                     const paper = document.querySelector('.paper');
