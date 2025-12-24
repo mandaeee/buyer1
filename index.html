@@ -140,30 +140,37 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 15px;
+            padding: 20px 10px;
             transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
             z-index: 5;
+            overflow: hidden; /* Supaya dekorasi tidak bikin scrollbar */
         }
 
         .photo-wrapper {
             position: relative;
             width: 100%;
-            min-height: 180px;
+            min-height: 220px; /* Ditambah tingginya karena bingkai lebih besar */
             display: flex; justify-content: center; align-items: center;
             margin-bottom: 10px;
-            z-index: 20; /* Lebih tinggi dari dekorasi */
+            z-index: 20;
         }
 
+        /* UKURAN BINGKAI DIPERBESAR */
         .frame {
             position: absolute;
-            width: 120px; height: 150px;
+            width: 145px; /* Dari 120px jadi 145px */
+            height: 180px; /* Dari 150px jadi 180px */
             background: white;
-            padding: 5px 5px 25px 5px;
+            padding: 8px 8px 35px 8px; /* Padding bawah lebih besar untuk efek polaroid */
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
         .frame img { width: 100%; height: 100%; object-fit: cover; }
-        .foto1 { transform: rotate(-8deg) translateX(-60px); }
-        .foto2 { transform: rotate(10deg) translateX(60px); }
+
+        /* POSISI 4 FOTO */
+        .foto1 { transform: rotate(-10deg) translateX(-85px) translateY(-10px); }
+        .foto2 { transform: rotate(12deg) translateX(85px) translateY(-10px); }
+        .foto3 { transform: rotate(-5deg) translateX(-100px) translateY(80px); z-index: 19; }
+        .foto4 { transform: rotate(8deg) translateX(100px) translateY(80px); z-index: 19; }
 
         .paper {
             width: 90%; max-width: 400px;
@@ -172,20 +179,20 @@
             padding: 20px;
             flex: 1;
             overflow-y: auto;
+            margin-top: 60px; /* Memberi ruang untuk foto 3 & 4 */
             margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            z-index: 20; /* Lebih tinggi dari dekorasi */
+            z-index: 25; /* Di atas foto 3 & 4 */
             position: relative;
         }
 
         #typing-text { font-family: 'Gaegu', cursive; font-size: 1.25rem; line-height: 1.6; color: #333; }
 
-        /* --- DEKORASI --- */
         .decor { 
             position: absolute; 
             opacity: 0.3; 
             pointer-events: none; 
-            z-index: 1; /* Paling belakang */
+            z-index: 1; 
         }
 
         .slide-up #halaman-awal { transform: translateY(-100%); }
@@ -214,6 +221,8 @@
         <div class="photo-wrapper">
             <div class="frame foto1"><img src="foto1.jpg"></div>
             <div class="frame foto2"><img src="foto2.jpg"></div>
+            <div class="frame foto3"><img src="foto3.jpg"></div>
+            <div class="frame foto4"><img src="foto4.jpg"></div>
         </div>
         <div class="paper">
             <div id="typing-text"></div>
@@ -280,3 +289,4 @@
     </script>
 </body>
 </html>
+
