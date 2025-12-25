@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background-color: #d1d1d1; 
@@ -15,9 +15,9 @@
             font-family: 'Fredoka', sans-serif;
             width: 100%;
             height: 100vh;
+            height: -webkit-fill-available;
         }
 
-        /* --- HALAMAN 1 --- */
         #halaman-awal {
             height: 100vh;
             display: flex;
@@ -39,10 +39,8 @@
             text-align: center; 
             max-width: 300px; 
             line-height: 1.5; 
-            word-wrap: break-word;
         }
 
-        /* --- ENVELOPE --- */
         .envelope-wrapper {
             position: relative;
             cursor: pointer;
@@ -89,7 +87,6 @@
             z-index: 23;
         }
 
-        /* --- FOTO GERAK --- */
         .film-strip {
             position: absolute;
             width: 80px;
@@ -134,7 +131,6 @@
             100% { transform: translate(-120vw, -20vh) rotate(-20deg); opacity: 0; }
         }
 
-        /* --- HALAMAN 2 --- */
         #halaman-utama {
             height: 100vh;
             width: 100%;
@@ -198,12 +194,7 @@
             white-space: pre-wrap; 
         }
 
-        .decor { 
-            position: absolute; 
-            opacity: 0.3; 
-            pointer-events: none; 
-            z-index: 1; 
-        }
+        .decor { position: absolute; opacity: 0.3; pointer-events: none; z-index: 1; }
 
         .slide-up #halaman-awal { transform: translateY(-100%); }
         .slide-up #halaman-utama { transform: translateY(-100%); }
@@ -211,7 +202,7 @@
 </head>
 <body id="main-body">
 
-    <audio id="lagu" src="lagu1.mp3" loop></audio>
+    <audio id="lagu" src="lagu1.mp3" loop playsinline preload="auto"></audio>
 
     <div id="halaman-awal">
         <div id="decor-awal"></div>
@@ -263,7 +254,14 @@
         spawnDecor('decor-awal');
         spawnDecor('decor-utama');
 
-        btnBuka.addEventListener('click', () => {
+        btnBuka.addEventListener('click', function() {
+            // SOLUSI iPHONE: Memicu audio langsung pada saat interaksi user
+            // Kita play lalu pause seketika untuk mendapatkan "kunci" audio dari sistem
+            lagu.play().then(() => {
+                lagu.pause(); 
+                lagu.currentTime = 38; // Set ke reff
+            }).catch(e => console.log("Audio trigger error:", e));
+
             envelope.classList.add('open');
             setTimeout(() => { 
                 film.style.opacity = "1"; 
@@ -277,10 +275,11 @@
             }, 2100);
 
             setTimeout(() => {
-                // Setting Reff Detik 38
-                lagu.currentTime = 38; 
+                // Mainkan kembali lagu saat transisi halaman dimulai
+                lagu.play().catch(error => {
+                    console.log("Playback failed:", error);
+                });
                 
-                lagu.play().catch(e => console.log("Play blocked by browser"));
                 document.getElementById('main-body').classList.add('slide-up');
                 setTimeout(mulaiKetik, 1000);
             }, 6500); 
@@ -288,6 +287,7 @@
 
         function mulaiKetik() {
             let i = 0;
+            textElement.textContent = ""; 
             function ketik() {
                 if (i < pesan.length) {
                     textElement.textContent += pesan.charAt(i);
